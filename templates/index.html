@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>NLP API</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prettyPhoto.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>NLP with Disaster Tweets</title>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head><!--/head-->
+
+<body data-spy="scroll" data-target="#navbar" data-offset="0">
+    <header id="header" role="banner">
+        <div class="container">
+            <div id="navbar" class="navbar navbar-default" >
+                <div class="navbar-header">
+                    <a class="navbar-brand" href={{ url_for('home') }}>
+                        <img src={{ url_for('static', filename='images/logo.png') }} style= "height:80px; width:80px;" alt="CPInS">
+                    </a>
+                    <a class="navbar-brand">
+                        <h3>China Pakistan Intelligent Systems (CPInS) Lab - NLP Workshop</h3>
+                    </a>
+                </div>
+            </div>   
+        </div>
+    </header><!--/#header-->
+
+
+<section id="main-slider" >
+        <div class="item active">
+                <h1>NLP with Disaster Tweets</h1>
+                <p>Classification of your sentiments, just a click away!</p>
+                <form action="{{ url_for('predict')}}" method="post">
+                    <label>Enter Text To Predict Disaster:&nbsp;&nbsp;&nbsp; </label>
+                    <input type="text" name="name" placeholder="Disaster Data" required="required" />
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block btn-large predict">Predict</button>
+                </form>
+            </div><!--/.item-->
+            <br>
+            <br>
+      
+      
+            <center>
+                <p>{{ prediction_placeholder }}</p>
+
+                <!-- {% if prediction_placeholder == 1 %}
+                <p>It's a disaster!</p>
+                {% elif prediction_placeholder == 0 %}
+                <p>Not a disaster!</p>
+                {% endif %} -->
+                <!-- {% if prediction_placeholder == 1 %}
+                <img src="../static/images/disaster.gif" style="height:150px; width: 150px;">
+                {% elif prediction_placeholder == 0 %}
+                <img src="../static/images/not_disaster.gif" style="height:150px; width: 150px;">
+                {% endif %} -->
+                <!--
+                -- TO DO --
+                Try displaying gifs from your static files!
+                If prediction_placeholder has value 1: display image at the source src="../static/images/disaster.gif"
+                Else, use src="../static/images/not_disaster.gif"
+                Use Inline styling: style="height:150px; width: 150px;"
+                -->
+
+            </center>
+      
+  
+            
+    </section><!--/#main-slider-->
+
+    <section id="contact">
+        <div class="box last">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3>China-Pakistan Intelligent Systems (CPInS) Lab</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>SEECS, NUST</h5>
+                            <a href="http://cpins.seecs.edu.pk/">http://cpins.seecs.edu.pk/</a>
+                        </div>
+                        
+                    </div>
+                </div><!--/.col-sm-6-->
+            </div><!--/.row-->
+        </div><!--/.box-->
+    </section><!--/#contact-->
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    &copy; 2022 <a target="_blank" href="http://cpins.seecs.edu.pk/" title="CPInS">CPInS</a>. All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </footer><!--/#footer-->
+
+</body>
+</html>
