@@ -37,6 +37,8 @@
                 <p>Classification of your sentiments, just a click away!</p>
                 <form action="{{ url_for('predict')}}" method="post" enctype="multipart/form-data">
                     <label>Enter Text To Predict Disaster:&nbsp;&nbsp;&nbsp; </label>
+
+                    <!-- DONT CHANGE NAME & VALUE ATTRIBUTES OF ANY TAG BELOW -->
                     <input type="file" name="uploadedCSV" required="required" accept=".csv"/>
                     <br>
                     <p>header
@@ -45,6 +47,8 @@
                     <p>no header
                         <input type="radio" name="header" value=0 required="required"/>
                     </p>
+                    <!-- DONT CHANGE NAME & VALUE ATTRIBUTES OF ANY TAG ABOVE -->
+
                     <br>
                     <br>
                     <button type="submit" class="btn btn-primary btn-block btn-large predict">Predict</button>
