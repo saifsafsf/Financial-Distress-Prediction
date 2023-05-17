@@ -1,16 +1,7 @@
 #Import libraries
 import numpy as np
-from tensorflow import keras
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-import tensorflow as tf
-import re
-import string
-
-import nltk
-from nltk.stem import PorterStemmer
-from nltk.corpus import stopwords
-from nltk.stem.porter import PorterStemmer
+import pandas as pd
+# from sklearn import 
 
 from flask import Flask, request, render_template
 
