@@ -1,7 +1,9 @@
 #Import libraries
 import numpy as np
 import pandas as pd
+import os
 import pickle
+from werkzeug.utils import secure_filename
 
 from flask import Flask, request, render_template
 
@@ -12,11 +14,12 @@ def home():
     return render_template('index.html')
 
 
-def get_model():
+def __get_model():
     '''
     Loading model for the server-side
     '''
-    model = tf.keras.models.load_model('model.h5')
+    file = open('model.pkl', 'rb')
+    model = pickle.load(file)
     print(" * Model loaded!")
     return model
 
@@ -25,41 +28,32 @@ def predict():
     '''
     A view for rendering results on HTML GUI
     '''
-    # html -> py
-    input_generator = request.form.values()
+    uploaded_file = request.files['uploadedCSV']
+    filename = secure_filename(uploaded_file.filename)
+    uploaded_file.save(filename)
 
-    #Gets values from form via POST request as a generator
-    print(type(input_generator))
+    feat_imp = ['x35', 'x26', 'x83', 'x41', 'x12', 'x50', 'x75', 'x25', 'x34', 'x29', 'x65', 'x61', 'x79', 'x53', 'x23', 'x43', 'x36', 'x81', 'x14', 'x37', 'x5', 'x9', 'x60', 'x13', 'x15', 'x3', 'x22', 'x44', 'x42', 'x57', 'x10', 'x49', 'x31', 'x2', 'x16', 'x46', 'x52', 'x8', 'x38', 'x19', 'x59', 'x32', 'x47']
+
+    header = request.form['header']
+
+    if header == 0:
+        df = pd.read_csv(filename, header=None)
+        df.columns = feat_imp
+
+    else:
+        df = pd.read_csv(filename)
     
-    #To get the value from a generator
-    text = next(input_generator)
-    print(type(text))
-
-    #Call pre-processing function
-    max_features=3000
-    tokenizer=Tokenizer(num_words=max_features,split=' ')
-    dump = preprocess_data(text)
-    tw = tokenizer.texts_to_sequences([dump])
-    tw = pad_sequences(tw,maxlen=200)
+    # df = df[feat_imp]
 
     #Predict the input text using your LSTM Model
-    model = get_model()
-    prediction = model.predict(tw)
-    if prediction >=0.5:
-        return render_template('index.html', prediction_placeholder=1)
+    model = __get_model()
+    prediction = model.predict(df)[0]
+
+    if prediction == 0:
+        return render_template('index.html', prediction_placeholder="Healthy")
     else:
-        return render_template('index.html', prediction_placeholder=0)
-    
-    # py -> html
-    # return render_template('index.html', prediction_placeholder=prediction)
-
-    
-def preprocess_data(df):
-    
-    
-    return df
-
+        return render_template('index.html', prediction_placeholder="Bankrupt")
 
 
 if __name__ == "__main__":
-    app.run(debug=True) #debug=True means you won't have to run the server again & again, it'll update directly for you
+    app.run(debug=True)

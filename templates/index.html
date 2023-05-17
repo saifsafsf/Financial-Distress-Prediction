@@ -35,9 +35,16 @@
         <div class="item active">
                 <h1>NLP with Disaster Tweets</h1>
                 <p>Classification of your sentiments, just a click away!</p>
-                <form action="{{ url_for('predict')}}" method="post">
+                <form action="{{ url_for('predict')}}" method="post" enctype="multipart/form-data">
                     <label>Enter Text To Predict Disaster:&nbsp;&nbsp;&nbsp; </label>
-                    <input type="text" name="name" placeholder="Disaster Data" required="required" />
+                    <input type="file" name="uploadedCSV" required="required" accept=".csv"/>
+                    <br>
+                    <p>header
+                        <input type="radio" name="header" value=1 required="required"/>
+                    </p>
+                    <p>no header
+                        <input type="radio" name="header" value=0 required="required"/>
+                    </p>
                     <br>
                     <br>
                     <button type="submit" class="btn btn-primary btn-block btn-large predict">Predict</button>
