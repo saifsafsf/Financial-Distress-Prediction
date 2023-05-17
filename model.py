@@ -123,4 +123,4 @@ def save_model(model, filepath):
 if __name__ == "__main__":
     X, y = preprocess('data/Financial Distress.csv')
     bbc = fit_model(X, y)
-    save_model(bbc, 'model_1.pkl')
+    save_model(bbc, 'model.pkl')
