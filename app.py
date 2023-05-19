@@ -1,7 +1,5 @@
 #Import libraries
-import numpy as np
 import pandas as pd
-import os
 import pickle
 from werkzeug.utils import secure_filename
 
@@ -43,7 +41,7 @@ def predict():
     else:
         df = pd.read_csv(filename)
     
-    # df = df[feat_imp]
+    df = df[feat_imp]
 
     #Predict the input text using your LSTM Model
     model = __get_model()

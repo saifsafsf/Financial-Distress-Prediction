@@ -100,6 +100,10 @@ def preprocess(filepath):
     # concatenating extra target records
     y_normal_over = pd.concat([y, over_target]).squeeze()
 
+    # top 43 features
+    feat_imp = ['x35', 'x26', 'x83', 'x41', 'x12', 'x50', 'x75', 'x25', 'x34', 'x29', 'x65', 'x61', 'x79', 'x53', 'x23', 'x43', 'x36', 'x81', 'x14', 'x37', 'x5', 'x9', 'x60', 'x13', 'x15', 'x3', 'x22', 'x44', 'x42', 'x57', 'x10', 'x49', 'x31', 'x2', 'x16', 'x46', 'x52', 'x8', 'x38', 'x19', 'x59', 'x32', 'x47']
+    X_normal_over = X_normal_over[feat_imp]
+
     return X_normal_over, y_normal_over
 
 
