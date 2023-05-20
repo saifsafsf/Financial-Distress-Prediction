@@ -4,7 +4,6 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from imblearn.ensemble import BalancedBaggingClassifier
-from sklearn.pipeline import make_pipeline
 import pickle
 
 def __normal_imputer(X : pd.DataFrame , random_state=None, inplace=False):
@@ -71,8 +70,14 @@ def preprocess(filepath):
     X = df.drop(columns=target)
     y = df[target]
 
+    # required bankrupt companies
+    bankrupt = y[y==1].shape[0]
+    total = y.shape[0]
+    healthy = total - bankrupt
+    required = healthy - bankrupt
+
     # creating empty records to be imputed
-    null_samples = np.full((3400, 83), np.nan)
+    null_samples = np.full((required, X.shape[1]), np.nan)
     null_samples = pd.DataFrame(null_samples)
     null_samples.columns = X.columns
     null_samples.reset_index(drop=True, inplace=True)
@@ -102,6 +107,8 @@ def preprocess(filepath):
 
     # top 43 features
     feat_imp = ['x35', 'x26', 'x83', 'x41', 'x12', 'x50', 'x75', 'x25', 'x34', 'x29', 'x65', 'x61', 'x79', 'x53', 'x23', 'x43', 'x36', 'x81', 'x14', 'x37', 'x5', 'x9', 'x60', 'x13', 'x15', 'x3', 'x22', 'x44', 'x42', 'x57', 'x10', 'x49', 'x31', 'x2', 'x16', 'x46', 'x52', 'x8', 'x38', 'x19', 'x59', 'x32', 'x47']
+    # X_normal_over = SelectKBest(k=43).fit_transform(X_normal_over, y_normal_over)
+
     X_normal_over = X_normal_over[feat_imp]
 
     return X_normal_over, y_normal_over
@@ -125,6 +132,6 @@ def save_model(model, filepath):
 
 
 if __name__ == "__main__":
-    X, y = preprocess('data/Financial Distress.csv')
+    X, y = preprocess('data/bankruptcy-data-1.csv')
     bbc = fit_model(X, y)
     save_model(bbc, 'model.pkl')

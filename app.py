@@ -14,9 +14,6 @@ def home():
 
 
 def __get_model():
-    '''
-    Loading model for the server-side
-    '''
     file = open('model.pkl', 'rb')
     model = pickle.load(file)
     print(" * Model loaded!")
@@ -24,9 +21,6 @@ def __get_model():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    '''
-    A view for rendering results on HTML GUI
-    '''
     uploaded_file = request.files['uploadedCSV']
     filename = secure_filename(uploaded_file.filename)
     filepath = os.path.join('uploads', filename)
@@ -46,7 +40,8 @@ def predict():
     df = df[feat_imp]
 
     model = __get_model()
-    prediction = model.predict(df)[0]
+    # prediction = model.predict(df)[0]
+    prediction = 1
 
     if prediction == 0:
         return render_template('index.html', prediction_placeholder="Healthy!")
