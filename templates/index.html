@@ -1,116 +1,208 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>NLP API</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prettyPhoto.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>NLP with Disaster Tweets</title>
-  <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}">
-</head><!--/head-->
+  <head>
+    <title>Financial Distress Predictor</title>
+    <style>
+      body {
+        overflow-y: hidden;
+        margin: 0;
+        padding: 0;
+        font-family: Georgia,Arial, sans-serif ;
+      }
 
-<body data-spy="scroll" data-target="#navbar" data-offset="0">
-    <header id="header" role="banner">
-        <div class="container">
-            <div id="navbar" class="navbar navbar-default" >
-                <div class="navbar-header">
-                    <a class="navbar-brand" href={{ url_for('home') }}>
-                        <img src={{ url_for('static', filename='images/logo.png') }} style= "height:80px; width:80px;" alt="CPInS">
-                    </a>
-                    <a class="navbar-brand">
-                        <h3>China Pakistan Intelligent Systems (CPInS) Lab - NLP Workshop</h3>
-                    </a>
-                </div>
-            </div>   
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      label {
+        color: #393646;
+      }
+
+      /* ///////////////////// */
+
+      .container {
+        display: flex;
+
+        height: 94vh;
+      }
+
+      .image {
+        flex: 1;
+        background-image: linear-gradient(to right, #00000000, #00000000, #f4eee0), url("https://g.foolcdn.com/editorial/images/718807/growth-stock-chart.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .form-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #f4eee0;
+      }
+
+      .upload-form {
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .form-group input[type="file"] {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+
+      .button-div {
+        display: flex;
+        justify-content: center;
+      }
+
+      .button-div > button {
+        width: 35%;
+        padding: 8px 12px;
+        /* background-color: #393fed; */
+        background-color: #393646;
+        color: #f4eee0;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      /* Footer */
+      .footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 4vh;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #6d5d6e;
+        color: #f4eee0;
+      }
+
+      .footer > a {
+        color: #f4eee0;
+      }
+
+      /* .bankruptcy {
+        
+      } */
+
+      .bankruptcy h3{
+        font-weight: bold;
+        margin-top: 40px;
+        font-size: 20px;
+        overflow: hidden; /* Ensures the content is not revealed until the animation */
+        border-right: 0.15em solid orange; /* The typwriter cursor */
+        white-space: nowrap; /* Keeps the content on a single line */
+       
+        letter-spacing: 0.15em; /* Adjust as needed */
+        animation: typing 3.5s steps(40, end),
+          blink-caret 0.75s step-end infinite;
+      }
+
+      /* The typing effect */
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      /* The typewriter cursor effect */
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: #393646;
+        }
+      }
+
+      /* //////////////////// */
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="image"></div>
+      <div class="form-container">
+        <div style="margin-bottom: 75px">
+          <h1 style="font-size: 40px; text-align: center">
+            Financial Distress Predictor
+          </h1>
         </div>
-    </header><!--/#header-->
+        <div>
+          <form
+            class="form-group"
+            action=" {{ url_for('predict')}}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <label for="csv-file">Select CSV File</label>
+            <input
+              type="file"
+              id="csv-file"
+              name="uploadedCSV"
+              required="required"
+              accept=".csv"
+            />
 
+            <br />
+            <p>
+              Header
+              <input
+                type="radio"
+                name="header"
+                value="1"
+                required="required"
+              />
+            </p>
+            <p>
+              No Header
+              <input type="radio" name="header" value="0" required="required" />
+            </p>
 
-<section id="main-slider" >
-        <div class="item active">
-                <h1>NLP with Disaster Tweets</h1>
-                <p>Classification of your sentiments, just a click away!</p>
-                <form action="{{ url_for('predict')}}" method="post" enctype="multipart/form-data">
-                    <label>Enter Text To Predict Disaster:&nbsp;&nbsp;&nbsp; </label>
-
-                    <!-- DONT CHANGE NAME & VALUE ATTRIBUTES OF ANY TAG BELOW -->
-                    <input type="file" name="uploadedCSV" required="required" accept=".csv"/>
-                    <br>
-                    <p>header
-                        <input type="radio" name="header" value=1 required="required"/>
-                    </p>
-                    <p>no header
-                        <input type="radio" name="header" value=0 required="required"/>
-                    </p>
-                    <!-- DONT CHANGE NAME & VALUE ATTRIBUTES OF ANY TAG ABOVE -->
-
-                    <br>
-                    <br>
-                    <button type="submit" class="btn btn-primary btn-block btn-large predict">Predict</button>
-                </form>
-            </div><!--/.item-->
-            <br>
-            <br>
-      
-      
-            <center>
-                <p>{{ prediction_placeholder }}</p>
-
-                <!-- {% if prediction_placeholder == 1 %}
-                <p>It's a disaster!</p>
-                {% elif prediction_placeholder == 0 %}
-                <p>Not a disaster!</p>
-                {% endif %} -->
-                <!-- {% if prediction_placeholder == 1 %}
-                <img src="../static/images/disaster.gif" style="height:150px; width: 150px;">
-                {% elif prediction_placeholder == 0 %}
-                <img src="../static/images/not_disaster.gif" style="height:150px; width: 150px;">
-                {% endif %} -->
-                <!--
-                -- TO DO --
-                Try displaying gifs from your static files!
-                If prediction_placeholder has value 1: display image at the source src="../static/images/disaster.gif"
-                Else, use src="../static/images/not_disaster.gif"
-                Use Inline styling: style="height:150px; width: 150px;"
-                -->
-
-            </center>
-      
-  
-            
-    </section><!--/#main-slider-->
-
-    <section id="contact">
-        <div class="box last">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h3>China-Pakistan Intelligent Systems (CPInS) Lab</h3>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>SEECS, NUST</h5>
-                            <a href="http://cpins.seecs.edu.pk/">http://cpins.seecs.edu.pk/</a>
-                        </div>
-                        
-                    </div>
-                </div><!--/.col-sm-6-->
-            </div><!--/.row-->
-        </div><!--/.box-->
-    </section><!--/#contact-->
-
-    <footer id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    &copy; 2022 <a target="_blank" href="http://cpins.seecs.edu.pk/" title="CPInS">CPInS</a>. All Rights Reserved.
-                </div>
+            <div style="margin-top: 50px" class="button-div">
+              <button type="submit">Submit</button>
             </div>
-        </div>
-    </footer><!--/#footer-->
+          </form>
 
-</body>
+          <center>
+            <div class="bankruptcy">
+              <h3>{{ prediction_placeholder }}</h3>
+            </div>
+          </center>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      Github Repository:
+      <a
+        style="margin-left: 10px"
+        target="_blank"
+        href="https://github.com/saifsafsf/Financial-Distress-Prediction"
+        >https://github.com/saifsafsf/Financial-Distress-Prediction</a
+      >
+    </div>
+  </body>
 </html>
