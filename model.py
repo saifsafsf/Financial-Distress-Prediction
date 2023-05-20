@@ -127,7 +127,6 @@ def fit_model(X, y):
     return bbc
 
 def save_model(model, filepath):
-
     file = open(filepath, 'wb')
     pickle.dump(model, file)
 

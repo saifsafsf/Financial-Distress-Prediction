@@ -40,8 +40,7 @@ def predict():
     df = df[feat_imp]
 
     model = __get_model()
-    # prediction = model.predict(df)[0]
-    prediction = 1
+    prediction = model.predict(df)[0]
 
     if prediction == 0:
         return render_template('index.html', prediction_placeholder="Healthy!")
