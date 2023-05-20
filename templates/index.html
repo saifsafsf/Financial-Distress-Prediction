@@ -31,7 +31,7 @@
 
       .image {
         flex: 1;
-        background-image: linear-gradient(to right, #00000000, #00000000, #f4eee0), url("https://g.foolcdn.com/editorial/images/718807/growth-stock-chart.jpg");
+        background-image: linear-gradient(to right, #00000000, #00000000, #f4eee0), url("https://raw.githubusercontent.com/bilalsp/high_vol_stock/main/img/banner.jpg");
         background-size: cover;
         background-position: center;
       }
@@ -106,10 +106,12 @@
 
       .bankruptcy h3{
         font-weight: bold;
+        width: auto;
+        display: inline-block;
         margin-top: 40px;
         font-size: 20px;
         overflow: hidden; /* Ensures the content is not revealed until the animation */
-        border-right: 0.15em solid orange; /* The typwriter cursor */
+        border-right: 0.15em solid #393646; /* The typwriter cursor */
         white-space: nowrap; /* Keeps the content on a single line */
        
         letter-spacing: 0.15em; /* Adjust as needed */
@@ -120,10 +122,10 @@
       /* The typing effect */
       @keyframes typing {
         from {
-          width: 0;
+          max-width: 0;
         }
         to {
-          width: 100%;
+          max-width: 100%;
         }
       }
 
