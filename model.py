@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from imblearn.ensemble import BalancedBaggingClassifier
+from sklearn.pipeline import make_pipeline
 import pickle
 
 def __normal_imputer(X : pd.DataFrame , random_state=None, inplace=False):
