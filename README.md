@@ -18,6 +18,9 @@ To understand the data cleaning process & the final model provided, i.e. model.p
 
 ## Datasets
 Different datasets are provided in ./data directory. The provided model has been trained on the bankruptcy-data-1.csv. Modify model.py file to use other datasets.
-Access data dictionary for the given datasets from the links below:
-<a href="https://www.kaggle.com/datasets/shebrahimi/financial-distress">bankruptcy-data-1.csv</a>
 
+Access data dictionary for the given datasets from the links below:
+
+ - <a href="https://www.kaggle.com/datasets/shebrahimi/financial-distress">bankruptcy-data-1.csv</a>
+ - <a href="https://archive.ics.uci.edu/ml/datasets/Taiwanese+Bankruptcy+Prediction">bankruptcy-data-2.json</a>
+ - <a href="https://archive.ics.uci.edu/ml/datasets/Polish+companies+bankruptcy+data">bankruptcy-data-3.json</a>
