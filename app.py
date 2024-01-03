@@ -14,7 +14,7 @@ def home():
 
 
 def __get_model():
-    file = open('model.pkl', 'rb')
+    file = open('model/model.pkl', 'rb')
     model = pickle.load(file)
     # print(" * Model loaded!")
     return model
